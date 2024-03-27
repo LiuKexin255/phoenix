@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "nogo")
+load("@gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix phoenix
+
+gazelle(name = "gazelle")
+
+nogo(
+    name = "my_nogo",
+    visibility = ["//visibility:public"],  # must have public visibility
+    deps = [],
+)
