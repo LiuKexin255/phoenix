@@ -2,7 +2,6 @@ load("@rules_go//go:def.bzl", "nogo")
 load("@gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix phoenix
-
 gazelle(name = "gazelle")
 
 nogo(

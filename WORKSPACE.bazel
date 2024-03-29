@@ -1,6 +1,1 @@
-workspace(name="phoenix")
-
-load("//:go_deps.bzl" , "go_dependencies")
-
-# gazelle:repository_macro go_deps.bzl%go_dependencies
-go_dependencies()
+workspace(name = "phoenix")
