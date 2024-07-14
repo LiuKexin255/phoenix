@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "784646136ded246ba70d9b7705052b1b165e7b69893d4c049efceb717127530e",
+  "moduleFileHash": "c2aaa98f7de13b5fadffdb51873f12fe201b82fbd05a00d51f696647200bd995",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -51,7 +51,7 @@
             {
               "tagName": "nogo",
               "attributeValues": {
-                "nogo": "//:my_nogo"
+                "nogo": "//:nogo"
               },
               "devDependency": false,
               "location": {
