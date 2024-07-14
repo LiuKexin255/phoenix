@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+# gazelle:resolve go phoenix/project/infra/object_storage/storage/proto //project/infra/object_storage/storage/proto:api_gateway_library
+
+go_library(
+    name = "gateway_lib",
+    srcs = ["main.go"],
+    importpath = "phoenix/project/infra/object_storage/storage/cmd/gateway",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//common/go/x509",
+        "//project/infra/object_storage/storage/proto:api_gateway_library",
+        "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//encoding/gzip",
+    ],
+)
+
+go_binary(
+    name = "gateway",
+    embed = [":gateway_lib"],
+    visibility = ["//visibility:public"],
+)
