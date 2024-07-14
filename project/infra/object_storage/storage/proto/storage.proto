@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "phoenix/project/infra/object_storage/storage/proto";
+
+package helloworld;
+
+import "common/proto/google/api/annotations.proto";
+
+// The greeting service definition.
+service Storager {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+      post: "/v1/storage/say_hello"
+      body: "*"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
