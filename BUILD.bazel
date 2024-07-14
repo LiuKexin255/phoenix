@@ -1,5 +1,5 @@
-load("@rules_go//go:def.bzl", "nogo")
 load("@gazelle//:def.bzl", "gazelle")
+load("@rules_go//go:def.bzl", "nogo")
 
 # gazelle:prefix phoenix
 gazelle(name = "gazelle")
