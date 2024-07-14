@@ -4,11 +4,12 @@ import (
 	"log"
 	"net"
 
-	"phoenix/project/infra/object_storage/storage/proto"
 	"phoenix/common/go/x509"
+	"phoenix/project/infra/object_storage/storage/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	_ "google.golang.org/grpc/encoding/gzip"
 )
 
 func main() {

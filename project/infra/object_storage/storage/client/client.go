@@ -9,6 +9,7 @@ import (
 	"phoenix/project/infra/object_storage/storage/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/encoding/gzip"
 )
 
 func main() {
@@ -16,6 +17,7 @@ func main() {
 	conn, err := grpc.NewClient(
 		"127.0.0.1:8888",
 		grpc.WithTransportCredentials(x509.MustGetCACert()),
+		grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)),
 	)
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
