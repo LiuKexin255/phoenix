@@ -5,7 +5,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 go_library(
     name = "gateway_lib",
     srcs = ["main.go"],
-    importpath = "phoenix/project/infra/object_storage/storage/cmd/gateway",
+    importpath = "phoenix/project/infra/object_storage/gateway",
     visibility = ["//visibility:private"],
     deps = [
         "//common/go/x509",

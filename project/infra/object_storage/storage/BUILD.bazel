@@ -1,18 +1,12 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
-go_binary(
-    name = "rpc",
-    embed = [":rpc_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_library(
-    name = "rpc_lib",
+    name = "storage_lib",
     srcs = [
         "handler.go",
         "main.go",
     ],
-    importpath = "phoenix/project/infra/object_storage/storage/cmd/rpc",
+    importpath = "phoenix/project/infra/object_storage/storage",
     visibility = ["//visibility:private"],
     deps = [
         "//common/go/x509",
@@ -21,4 +15,10 @@ go_library(
         "@org_golang_google_grpc//credentials",
         "@org_golang_google_grpc//encoding/gzip",
     ],
+)
+
+go_binary(
+    name = "storage",
+    embed = [":storage_lib"],
+    visibility = ["//visibility:public"],
 )
