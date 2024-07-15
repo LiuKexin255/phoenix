@@ -100,7 +100,7 @@ spec:
     spec:
       containers:
         - name: ubuntu-dev
-          image: docker.liukexin.com/dev/ubuntu:v0.1.2
+          image: docker.liukexin.com/dev/ubuntu:v0.1.4
           ports:
             - containerPort: 22
               name: ssh
@@ -110,9 +110,9 @@ spec:
             - name: kube-config
               mountPath: /home/liukexin/.kube
               readOnly: true
-          # env:
-          #   - name: https_proxy
-          #     value: 192.168.2.101:10809
+          env:
+            - name: https_proxy
+              value: 192.168.2.101:10809
       volumes: 
         - name: kube-config
           configMap:
