@@ -13,12 +13,12 @@ openssl req -utf8 -new \
     -subj /C=CN/ST=Guangdong/L=Shenzhen/O=gRPC/CN=grpc.liukexin.com/
 
 openssl x509 -req -sha384 \
-    -extfile ../openssl.conf \
+    -extfile openssl.conf \
     -extensions v3_req \
     -in server.req \
     -out server.cer \
-    -CAkey ../ca.key \
-    -CA ../ca.cer  \
+    -CAkey ca.key \
+    -CA ca.cer  \
     -days 36500 \
     -CAcreateserial -CAserial serial
 
