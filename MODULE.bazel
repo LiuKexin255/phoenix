@@ -13,6 +13,7 @@ bazel_dep(name = "gazelle", version = "0.37.0")
 bazel_dep(name = "protobuf", version = "27.2")
 bazel_dep(name = "rules_oci", version = "1.8.0")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
+bazel_dep(name = "aspect_bazel_lib", version = "2.7.8")
 bazel_dep(name = "rules_proto_grpc_grpc_gateway", version = "5.0.0-alpha2")
 
 # install golang sdk
@@ -28,9 +29,8 @@ oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "ubuntu",
     image = "docker.liukexin.com/base/ubuntu",
-    platforms = [
-        "linux/amd64",
-    ],
+    platforms = ["linux/amd64"],
     tag = "v0.1.0",
+    digest = "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
 )
 use_repo(oci, "ubuntu")

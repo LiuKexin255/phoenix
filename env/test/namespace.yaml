@@ -100,7 +100,7 @@ spec:
     spec:
       containers:
         - name: ubuntu-dev
-          image: docker.liukexin.com/dev/ubuntu:v0.1.4
+          image: docker.liukexin.com/dev/ubuntu:v0.1.5
           ports:
             - containerPort: 22
               name: ssh
