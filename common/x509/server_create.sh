@@ -8,7 +8,7 @@ openssl req -utf8 -new \
     -config openssl.conf \
     -out server.req \
     -key server.key \
-    -subj /C=CN/ST=Guangdong/L=Shenzhen/O=gRPC/CN=object-test.liukexin.com/
+    -subj /C=CN/ST=Guangdong/L=Shenzhen/O=gRPC/CN=*.liukexin.com/
 
 openssl x509 -req -sha384 \
     -extfile openssl.conf \

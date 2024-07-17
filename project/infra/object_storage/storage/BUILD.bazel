@@ -12,8 +12,10 @@ go_library(
     importpath = "phoenix/project/infra/object_storage/storage",
     visibility = ["//visibility:private"],
     deps = [
+        "//common/go/x509",
         "//project/infra/object_storage/storage/proto:proto_go_proto",
         "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials",
         "@org_golang_google_grpc//encoding/gzip",
         "@org_golang_google_grpc//grpclog",
         "@org_golang_google_grpc//keepalive",
@@ -36,7 +38,6 @@ oci_image(
     base = "@ubuntu",
     entrypoint = ["/storage"],
     env = {
-        "GRPC_GO_LOG_VERBOSITY_LEVEL": "99",
         "GRPC_GO_LOG_SEVERITY_LEVEL": "info",
     },
     exposed_ports = ["8888"],

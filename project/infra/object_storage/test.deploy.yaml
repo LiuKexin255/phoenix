@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.storage.storage:v0.0.1-458f50f-dirty
+          image: docker.liukexin.com/artificial/object_storage.storage.storage:v0.0.1-57531c0-dirty
           ports:
             - containerPort: 8888
               name: grpc
@@ -67,10 +67,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - object-test.liukexin.com
+        - object.liukexin.com
       secretName: https-tls
   rules:
-    - host: object-test.liukexin.com
+    - host: object.liukexin.com
       http:
         paths:
           - path: /
@@ -122,7 +122,7 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.gateway.gateway:v0.0.1-458f50f-dirty
+          image: docker.liukexin.com/artificial/object_storage.gateway.gateway:v0.0.1-57531c0-dirty
           ports:
             - containerPort: 443
               name: https
