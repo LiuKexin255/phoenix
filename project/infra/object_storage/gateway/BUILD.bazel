@@ -1,4 +1,7 @@
+load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 # gazelle:resolve go phoenix/project/infra/object_storage/storage/proto //project/infra/object_storage/storage/proto:api_gateway_library
 
@@ -13,6 +16,7 @@ go_library(
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//encoding/gzip",
+        "@org_golang_google_grpc//keepalive",
     ],
 )
 
@@ -20,4 +24,35 @@ go_binary(
     name = "gateway",
     embed = [":gateway_lib"],
     visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "gateway_pkg",
+    srcs = [":gateway"],
+)
+
+oci_image(
+    name = "image",
+    base = "@ubuntu",
+    entrypoint = ["/gateway"],
+    env = {
+        "GRPC_GO_LOG_VERBOSITY_LEVEL": "99",
+        "GRPC_GO_LOG_SEVERITY_LEVEL": "info",
+    },
+    exposed_ports = ["443"],
+    tars = [":gateway_pkg"],
+)
+
+expand_template(
+    name = "stamped",
+    out = "_stamped.tags.txt",
+    stamp_substitutions = {"v0.0.1": "v0.0.1-{{BUILD_EMBED_LABEL}}"},
+    template = ["v0.0.1"],
+)
+
+oci_push(
+    name = "push",
+    image = ":image",
+    remote_tags = ":stamped",
+    repository = "docker.liukexin.com/artificial/object_storage.gateway.gateway",
 )
