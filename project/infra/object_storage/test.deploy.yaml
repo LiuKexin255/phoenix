@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-storage-service
+  namespace: test
+  labels:
+    app: object-storage
+spec:
+  ports:
+    - port: 8888
+      name: grpc
+      targetPort: 8888
+      protocol: TCP
+  clusterIP: None 
+  selector:
+    name: object-storage--storage
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: object-storage--storage
+  namespace: test
+  labels:
+    app: object-storage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: object-storage--storage
+  template:
+    metadata:
+      labels:
+        name: object-storage--storage
+        app: docker-registry
+    spec:
+      containers:
+        - name: storage
+          image: docker.liukexin.com/artificial/object_storage.storage.storage:v0.0.1-5ceb578-dirty
+          ports:
+            - containerPort: 8888
+              name: grpc
+              protocol: TCP
+          volumeMounts:
+            - name: grpc-tls
+              readOnly: true
+              mountPath: "/etc/tls/grpc"
+            - name: grpc-ca
+              readOnly: true 
+              mountPath: "/etc/ca/grpc"
+      volumes:
+        - name: grpc-tls
+          secret:
+            secretName: grpc-tls
+        - name: grpc-ca
+          secret: 
+            secretName: grpc-ca

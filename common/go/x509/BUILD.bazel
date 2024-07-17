@@ -3,11 +3,6 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "x509",
     srcs = ["x509.go"],
-    embedsrcs = [
-        "server.cer",
-        "ca.cer",
-        "server.key",
-    ],
     importpath = "phoenix/common/go/x509",
     visibility = ["//visibility:public"],
     deps = ["@org_golang_google_grpc//credentials"],

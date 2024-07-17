@@ -6,6 +6,12 @@
     },
     "go.useLanguageServer": true,
     "gopls": {
+        "build.directoryFilters": [
+            "-bazel-bin",
+            "-bazel-out",
+            "-bazel-testlogs",
+            "-bazel-phoenix"
+        ],
         "formatting.local": "phoenix",
         "ui.completion.usePlaceholders": true,
         "ui.semanticTokens": true,

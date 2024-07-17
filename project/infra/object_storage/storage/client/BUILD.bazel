@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "client_lib",
+    srcs = ["client.go"],
+    importpath = "phoenix/project/infra/object_storage/storage/client",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//project/infra/object_storage/storage/proto:proto_go_proto",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
+    ],
+)
+
+go_binary(
+    name = "client",
+    embed = [":client_lib"],
+    env = {
+        "GRPC_GO_LOG_VERBOSITY_LEVEL": "99",
+        "GRPC_GO_LOG_SEVERITY_LEVEL": "info",
+    },
+    visibility = ["//visibility:public"],
+)

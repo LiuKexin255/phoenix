@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "36d910f6b9665cad068b1891e25a2380305c9331b0ac01fae457da9d3f9b494c",
+  "moduleFileHash": "924b0957fb74a3803bb15afb60bf2d7b02d2274f53b12b2c17ff219716f26da6",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -113,12 +113,12 @@
               "tagName": "pull",
               "attributeValues": {
                 "name": "ubuntu",
+                "digest": "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
                 "image": "docker.liukexin.com/base/ubuntu",
                 "platforms": [
                   "linux/amd64"
                 ],
-                "tag": "v0.1.0",
-                "digest": "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b"
+                "tag": "v0.1.0"
               },
               "devDependency": false,
               "location": {
