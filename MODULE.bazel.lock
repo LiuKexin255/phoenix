@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "924b0957fb74a3803bb15afb60bf2d7b02d2274f53b12b2c17ff219716f26da6",
+  "moduleFileHash": "bfab30816577a35d013fa6611f2ea304e53976ed90504df1ea91c6e06ec72644",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -113,7 +113,7 @@
               "tagName": "pull",
               "attributeValues": {
                 "name": "ubuntu",
-                "digest": "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
+                "digest": "sha256:1a14464bbca6032f9bc185b2fc25bb1b255759eaa267dd8b4f1aec7d6003f14f",
                 "image": "docker.liukexin.com/base/ubuntu",
                 "platforms": [
                   "linux/amd64"
@@ -3324,7 +3324,7 @@
               "scheme": "https",
               "registry": "docker.liukexin.com",
               "repository": "base/ubuntu",
-              "identifier": "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
+              "identifier": "sha256:1a14464bbca6032f9bc185b2fc25bb1b255759eaa267dd8b4f1aec7d6003f14f",
               "platform": "linux/amd64",
               "target_name": "ubuntu_linux_amd64",
               "bazel_tags": []
@@ -3346,7 +3346,7 @@
               "scheme": "https",
               "registry": "docker.liukexin.com",
               "repository": "base/ubuntu",
-              "identifier": "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
+              "identifier": "sha256:1a14464bbca6032f9bc185b2fc25bb1b255759eaa267dd8b4f1aec7d6003f14f",
               "platforms": {
                 "@@platforms//cpu:x86_64": "@ubuntu_linux_amd64"
               },

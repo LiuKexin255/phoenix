@@ -10,9 +10,11 @@ spec:
     - port: 8888
       name: grpc
       targetPort: 8888
-  clusterIP: None 
+  # clusterIP: None
+  type: ClusterIP
   selector:
     name: object-storage--storage
+
 ---
 
 apiVersion: apps/v1
@@ -35,53 +37,33 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.storage.storage:v0.0.1-57531c0-dirty
+          image: docker.liukexin.com/artificial/object_storage.storage.storage@sha256:29356d06c771211fea3d2b8a47bc74160995b8c06114ae6b273bc0546c1690b4
           ports:
             - containerPort: 8888
               name: grpc
-          volumeMounts:
-            - name: grpc-tls
-              readOnly: true
-              mountPath: "/etc/tls/grpc"
-            - name: grpc-ca
-              readOnly: true 
-              mountPath: "/etc/ca/grpc"
-      volumes:
-        - name: grpc-tls
-          secret:
-            secretName: grpc-tls
-        - name: grpc-ca
-          secret: 
-            secretName: grpc-ca
+
 
 ---
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  name: object-storage-ingress
+  name: object-storage-route
   namespace: test
-  annotations: 
-    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - object.liukexin.com
-      secretName: https-tls
+  parentRefs:
+    - name: http-gateway
+      namespace: test
+  hostnames: ["object-test.liukexin.com"]
   rules:
-    - host: object.liukexin.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: object-storage--gateway-service
-                port:
-                  number: 443
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: object-storage--gateway-service
+          port: 443
 
---- 
+---
 
 apiVersion: v1
 kind: Service
@@ -91,17 +73,16 @@ metadata:
   labels:
     app: object-storage
 spec:
-  selector:
-    name: object-storage--gateway
   ports:
     - port: 443
       name: https
       targetPort: 443
-      protocol: TCP
+  # clusterIP: None
   type: ClusterIP
+  selector:
+    name: object-storage--gateway
 
---- 
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -122,21 +103,7 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.gateway.gateway:v0.0.1-57531c0-dirty
+          image: docker.liukexin.com/artificial/object_storage.gateway.gateway@sha256:ef4502f35b0b44038f1a323431a60e08be3f2c0dd2bd3c6c92443a17934f8589
           ports:
             - containerPort: 443
               name: https
-          volumeMounts:
-            - name: grpc-tls
-              readOnly: true
-              mountPath: "/etc/tls/grpc"
-            - name: grpc-ca
-              readOnly: true 
-              mountPath: "/etc/ca/grpc"
-      volumes:
-        - name: grpc-tls
-          secret:
-            secretName: grpc-tls
-        - name: grpc-ca
-          secret: 
-            secretName: grpc-ca

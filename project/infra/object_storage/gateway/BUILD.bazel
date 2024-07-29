@@ -11,10 +11,10 @@ go_library(
     importpath = "phoenix/project/infra/object_storage/gateway",
     visibility = ["//visibility:private"],
     deps = [
-        "//common/go/x509",
         "//project/infra/object_storage/storage/proto:api_gateway_library",
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
         "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
         "@org_golang_google_grpc//encoding/gzip",
         "@org_golang_google_grpc//keepalive",
     ],

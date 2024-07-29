@@ -24,7 +24,7 @@ var (
 func main() {
 	flag.Parse()
 	// Set up a connection to the server.
-	conn, err := grpc.NewClient("dns:///object-storage--storage-service:8888",
+	conn, err := grpc.NewClient("object-storage--storage-service.test:8888",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`),
 		grpc.WithKeepaliveParams(kacp),

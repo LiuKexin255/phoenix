@@ -5,11 +5,9 @@ import (
 	"net"
 	"time"
 
-	"phoenix/common/go/x509"
 	"phoenix/project/infra/object_storage/storage/proto"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	_ "google.golang.org/grpc/encoding/gzip"
 	"google.golang.org/grpc/keepalive"
 )
@@ -30,7 +28,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer(
-		grpc.Creds(credentials.NewServerTLSFromCert(x509.MustGetServerCert())),
+		// grpc.Creds(credentials.NewServerTLSFromCert(x509.MustGetServerCert())),
 		grpc.KeepaliveParams(kasp),
 	)
 

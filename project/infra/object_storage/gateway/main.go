@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"time"
 
-	"phoenix/common/go/x509"
 	"phoenix/project/infra/object_storage/storage/proto"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/encoding/gzip"
 	"google.golang.org/grpc/keepalive"
 )
@@ -26,8 +26,9 @@ var (
 func main() {
 	// Create a client connection to the gRPC server we just started
 	// This is where the gRPC-Gateway proxies the requests
-	conn, err := grpc.NewClient("dns:///object-storage--storage-service:8888",
-		grpc.WithTransportCredentials(x509.MustGetCACert()),
+	conn, err := grpc.NewClient("object-storage--storage-service:8888",
+		// grpc.WithTransportCredentials(x509.MustGetCACert()),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`),
 		grpc.WithKeepaliveParams(kacp),

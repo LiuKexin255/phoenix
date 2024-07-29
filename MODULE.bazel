@@ -28,7 +28,7 @@ use_repo(go_deps, "com_github_grpc_ecosystem_grpc_gateway_v2", "org_golang_googl
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "ubuntu",
-    digest = "sha256:2c711eeb9bfb43995d563c022067e9e183518d910b09ed9f960e39ac4d087d9b",
+    digest = "sha256:1a14464bbca6032f9bc185b2fc25bb1b255759eaa267dd8b4f1aec7d6003f14f",
     image = "docker.liukexin.com/base/ubuntu",
     platforms = ["linux/amd64"],
     tag = "v0.1.0",
