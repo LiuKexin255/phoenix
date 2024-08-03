@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: object-storage--storage-service
+  name: infra0object-storage0storage-service
   namespace: test
   labels:
-    app: object-storage
+    app: infra.object-storage
 spec:
   ports:
     - port: 8888
@@ -13,47 +13,48 @@ spec:
   # clusterIP: None
   type: ClusterIP
   selector:
-    name: object-storage--storage
+    name: infra.object-storage.storage
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: object-storage--storage
+  name: infra0object-storage0storage
   namespace: test
   labels:
-    app: object-storage
+    app: infra.object-storage
 spec:
   replicas: 2
   selector:
     matchLabels:
-      name: object-storage--storage
+      name: infra.object-storage.storage
+      app: infra.object-storage
   template:
     metadata:
       labels:
-        name: object-storage--storage
-        app: docker-registry
+        name: infra.object-storage.storage
+        app: infra.object-storage
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.storage.storage@sha256:e29d43bb10a786448ee2a479871a73c2b5dfb499704f49819eb01239a8cc0569
+          image: docker.liukexin.com/artificial/infra/object_storage.storage@sha256:b3dd6a8e961eefa111329cf09ea6d1e1ca568c075b9d6e74afe6e6251641147b
           ports:
             - containerPort: 8888
               name: grpc
           env:
-            - name: UPTRACE_DSN 
+            - name: UPTRACE_DSN
               value: http://test_secret_token@uptrace-service.default:4318?grpc=4317
             - name: UPTRACE_ENDPOINT
               value: uptrace-service.default:4317
-
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: object-storage-route
+  name: infra0object-storage0route
   namespace: test
+  labels:
+    app: infra.object-storage
 spec:
   parentRefs:
     - name: http-gateway
@@ -65,18 +66,17 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: object-storage--gateway-service
+        - name: infra0object-storage0api-service
           port: 443
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: object-storage--gateway-service
+  name: infra0object-storage0api-service
   namespace: test
   labels:
-    app: object-storage
+    app: infra.object-storage
 spec:
   ports:
     - port: 443
@@ -85,35 +85,36 @@ spec:
   # clusterIP: None
   type: ClusterIP
   selector:
-    name: object-storage--gateway
+    name: infra.object-storage.api
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: object-storage--gateway
+  name: infra0object-storage0api
   namespace: test
   labels:
-    app: object-storage
+    app: infra.object-storage
 spec:
   replicas: 2
   selector:
     matchLabels:
-      name: object-storage--gateway
+      name: infra.object-storage.api
+      app: infra.object-storage
   template:
     metadata:
       labels:
-        name: object-storage--gateway
-        app: docker-registry
+        name: infra.object-storage.api
+        app: infra.object-storage
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.gateway.gateway@sha256:dbc4962a1bd95f2e698024bd23147bdea957904d64465bbad010c32294e2f615
+          image: docker.liukexin.com/artificial/infra/object_storage.api@sha256:63380dcd11f544e0b1f7cb2adf045868b6bf00c272deb2a4d17756dbb3057b78
           ports:
             - containerPort: 443
               name: https
           env:
-            - name: UPTRACE_DSN 
+            - name: UPTRACE_DSN
               value: http://test_secret_token@uptrace-service.default:4318?grpc=4317
             - name: UPTRACE_ENDPOINT
               value: uptrace-service.default:4317

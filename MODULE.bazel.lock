@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "51f6bbd749929aedf42d22e7cc814ee17197c15e26fd2986d640d5c1e93a37e1",
+  "moduleFileHash": "493ab4bd6ac20f41d05829ca2f41b33b035584663b562825ad64c7c376d69afa",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -75,17 +75,21 @@
           },
           "imports": {
             "com_github_grpc_ecosystem_grpc_gateway_v2": "com_github_grpc_ecosystem_grpc_gateway_v2",
+            "com_github_uptrace_opentelemetry_go_extra_otelzap": "com_github_uptrace_opentelemetry_go_extra_otelzap",
             "io_opentelemetry_go_contrib_instrumentation_google_golang_org_grpc_otelgrpc": "io_opentelemetry_go_contrib_instrumentation_google_golang_org_grpc_otelgrpc",
             "io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp": "io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp",
             "io_opentelemetry_go_contrib_propagators_aws": "io_opentelemetry_go_contrib_propagators_aws",
             "io_opentelemetry_go_otel": "io_opentelemetry_go_otel",
+            "io_opentelemetry_go_otel_exporters_otlp_otlplog_otlploggrpc": "io_opentelemetry_go_otel_exporters_otlp_otlplog_otlploggrpc",
             "io_opentelemetry_go_otel_exporters_otlp_otlpmetric_otlpmetricgrpc": "io_opentelemetry_go_otel_exporters_otlp_otlpmetric_otlpmetricgrpc",
             "io_opentelemetry_go_otel_exporters_otlp_otlptrace_otlptracegrpc": "io_opentelemetry_go_otel_exporters_otlp_otlptrace_otlptracegrpc",
             "io_opentelemetry_go_otel_metric": "io_opentelemetry_go_otel_metric",
             "io_opentelemetry_go_otel_sdk": "io_opentelemetry_go_otel_sdk",
+            "io_opentelemetry_go_otel_sdk_log": "io_opentelemetry_go_otel_sdk_log",
             "io_opentelemetry_go_otel_sdk_metric": "io_opentelemetry_go_otel_sdk_metric",
             "io_opentelemetry_go_otel_trace": "io_opentelemetry_go_otel_trace",
-            "org_golang_google_grpc": "org_golang_google_grpc"
+            "org_golang_google_grpc": "org_golang_google_grpc",
+            "org_uber_go_zap": "org_uber_go_zap"
           },
           "devImports": [],
           "tags": [

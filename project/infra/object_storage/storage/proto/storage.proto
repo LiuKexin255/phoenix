@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "phoenix/project/infra/object_storage/storage/proto";
 
-package helloworld;
+package project.infra.object_storage.storage.proto;
 
 import "common/proto/google/api/annotations.proto";
 

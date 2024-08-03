@@ -2,16 +2,18 @@ package main
 
 import (
 	"context"
+	"fmt"
 
+	"phoenix/common/go/otel"
 	"phoenix/project/infra/object_storage/storage/proto"
 
+	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/trace"
-	"google.golang.org/grpc/grpclog"
+	"go.uber.org/zap"
 )
 
-func newServer(tracer trace.Tracer, meter metric.Meter) (*server, error) {
-	sayHelloCounter, err := meter.Int64Counter("sayHello.counter",
+func newServer() (*server, error) {
+	sayHelloCounter, err := otel.Meter().Int64Counter("sayHello.counter",
 		metric.WithUnit("1"),
 		metric.WithDescription("hello say counter"),
 	)
@@ -20,9 +22,6 @@ func newServer(tracer trace.Tracer, meter metric.Meter) (*server, error) {
 	}
 
 	return &server{
-		tracer: tracer,
-		meter:  meter,
-
 		sayHelloCounter: sayHelloCounter,
 	}, nil
 }
@@ -30,18 +29,17 @@ func newServer(tracer trace.Tracer, meter metric.Meter) (*server, error) {
 type server struct {
 	proto.UnimplementedStoragerServer
 
-	tracer trace.Tracer
-	meter  metric.Meter
-
 	sayHelloCounter metric.Int64Counter
 }
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloReply, error) {
-	ctx, span := s.tracer.Start(ctx, "SayHello")
+	ctx, span := otel.Tracer().Start(ctx, "SayHello")
 	defer span.End()
 
-	grpclog.Infof("Received: %v", in.GetName())
+	s.sayHelloCounter.Add(ctx, 1)
+
+	otelzap.Ctx(ctx).Info(fmt.Sprintf("%s say hello", in.GetName()), zap.String("name", in.GetName()))
 
 	return &proto.HelloReply{
 		Message: "Hello " + in.GetName(),
