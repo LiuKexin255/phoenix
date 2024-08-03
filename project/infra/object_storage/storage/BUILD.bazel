@@ -12,18 +12,26 @@ go_library(
     importpath = "phoenix/project/infra/object_storage/storage",
     visibility = ["//visibility:private"],
     deps = [
+        "//common/go/constdef",
+        "//common/go/env",
         "//project/infra/object_storage/storage/proto:proto_go_proto",
+        "@io_opentelemetry_go_contrib_instrumentation_google_golang_org_grpc_otelgrpc//:otelgrpc",
+        "@io_opentelemetry_go_contrib_propagators_aws//xray",
+        "@io_opentelemetry_go_otel//attribute",
+        "@io_opentelemetry_go_otel//propagation",
+        "@io_opentelemetry_go_otel_exporters_otlp_otlpmetric_otlpmetricgrpc//:otlpmetricgrpc",
+        "@io_opentelemetry_go_otel_exporters_otlp_otlptrace_otlptracegrpc//:otlptracegrpc",
+        "@io_opentelemetry_go_otel_metric//:metric",
+        "@io_opentelemetry_go_otel_sdk//resource",
+        "@io_opentelemetry_go_otel_sdk//trace",
+        "@io_opentelemetry_go_otel_sdk_metric//:metric",
+        "@io_opentelemetry_go_otel_sdk_metric//metricdata",
+        "@io_opentelemetry_go_otel_trace//:trace",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//encoding/gzip",
         "@org_golang_google_grpc//grpclog",
         "@org_golang_google_grpc//keepalive",
     ],
-)
-
-go_binary(
-    name = "storage",
-    embed = [":storage_lib"],
-    visibility = ["//visibility:public"],
 )
 
 pkg_tar(
@@ -54,4 +62,10 @@ oci_push(
     image = ":image",
     remote_tags = ":stamped",
     repository = "docker.liukexin.com/artificial/object_storage.storage.storage",
+)
+
+go_binary(
+    name = "storage",
+    embed = [":storage_lib"],
+    visibility = ["//visibility:public"],
 )

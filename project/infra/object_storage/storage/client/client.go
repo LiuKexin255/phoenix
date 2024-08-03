@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"log"
 	"time"
 
@@ -22,7 +21,6 @@ var (
 )
 
 func main() {
-	flag.Parse()
 	// Set up a connection to the server.
 	conn, err := grpc.NewClient("object-storage--storage-service.test:8888",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),

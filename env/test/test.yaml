@@ -28,3 +28,22 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
+
+--- 
+
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: otel
+  namespace: test
+spec:
+  tracing:
+    - providers:
+        - name: otel-tracing
+      randomSamplingPercentage: 100
+  metrics:
+    - providers:
+        - name: otel-metrics
+  accessLogging:
+    - providers:
+        - name: otel-logs

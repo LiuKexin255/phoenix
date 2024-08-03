@@ -37,10 +37,15 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.storage.storage@sha256:29356d06c771211fea3d2b8a47bc74160995b8c06114ae6b273bc0546c1690b4
+          image: docker.liukexin.com/artificial/object_storage.storage.storage@sha256:e29d43bb10a786448ee2a479871a73c2b5dfb499704f49819eb01239a8cc0569
           ports:
             - containerPort: 8888
               name: grpc
+          env:
+            - name: UPTRACE_DSN 
+              value: http://test_secret_token@uptrace-service.default:4318?grpc=4317
+            - name: UPTRACE_ENDPOINT
+              value: uptrace-service.default:4317
 
 
 ---
@@ -103,7 +108,12 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/object_storage.gateway.gateway@sha256:ef4502f35b0b44038f1a323431a60e08be3f2c0dd2bd3c6c92443a17934f8589
+          image: docker.liukexin.com/artificial/object_storage.gateway.gateway@sha256:dbc4962a1bd95f2e698024bd23147bdea957904d64465bbad010c32294e2f615
           ports:
             - containerPort: 443
               name: https
+          env:
+            - name: UPTRACE_DSN 
+              value: http://test_secret_token@uptrace-service.default:4318?grpc=4317
+            - name: UPTRACE_ENDPOINT
+              value: uptrace-service.default:4317
