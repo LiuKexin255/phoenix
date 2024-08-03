@@ -5,9 +5,8 @@ import (
 	"fmt"
 
 	"phoenix/common/go/otel"
-	"phoenix/project/infra/object_storage/storage/proto"
+	proto "phoenix/project/infra/object_storage"
 
-	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/zap"
 )
@@ -39,7 +38,7 @@ func (s *server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.H
 
 	s.sayHelloCounter.Add(ctx, 1)
 
-	otelzap.Ctx(ctx).Info(fmt.Sprintf("%s say hello", in.GetName()), zap.String("name", in.GetName()))
+	otel.Logger(ctx).Info(fmt.Sprintf("%s say hello", in.GetName()), zap.String("name", in.GetName()))
 
 	return &proto.HelloReply{
 		Message: "Hello " + in.GetName(),

@@ -13,8 +13,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//common/go/otel",
-        "//project/infra/object_storage/storage/proto:proto_go_proto",
-        "@com_github_uptrace_opentelemetry_go_extra_otelzap//:otelzap",
+        "//project/infra/object_storage:object_storage_go_proto",
         "@io_opentelemetry_go_contrib_instrumentation_google_golang_org_grpc_otelgrpc//:otelgrpc",
         "@io_opentelemetry_go_otel//propagation",
         "@io_opentelemetry_go_otel_metric//:metric",

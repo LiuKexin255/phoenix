@@ -1,0 +1,27 @@
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_proto_grpc_grpc_gateway//:defs.bzl", "gateway_grpc_library")
+
+proto_library(
+    name = "object_storage_proto",
+    srcs = ["storage.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["//common/proto/google/api:annotations_proto"],
+)
+
+go_proto_library(
+    name = "object_storage_go_proto",
+    compilers = ["@rules_go//proto:go_grpc"],
+    importpath = "phoenix/project/infra/object_storage",
+    proto = ":object_storage_proto",
+    visibility = ["//visibility:public"],
+    deps = ["//common/proto/google/api:annotations"],
+)
+
+gateway_grpc_library(
+    name = "api_gateway_library",
+    importpath = "phoenix/project/infra/object_storage",
+    protos = [":object_storage_proto"],
+    visibility = ["//visibility:public"],
+    deps = ["//common/proto/google/api:annotations"],
+)

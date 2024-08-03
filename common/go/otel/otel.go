@@ -37,7 +37,7 @@ func Tracer() trace.Tracer { return globalTracer }
 
 func Meter() metric.Meter { return globalMeter }
 
-func Logger() *otelzap.Logger { return globalLogger }
+func Logger(ctx context.Context) otelzap.LoggerWithCtx { return globalLogger.Ctx(ctx) }
 
 func TracerProvider() *sdktrace.TracerProvider { return globalTracerProvider }
 

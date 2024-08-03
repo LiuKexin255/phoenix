@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"phoenix/common/go/otel"
-	"phoenix/project/infra/object_storage/storage/proto"
+	proto "phoenix/project/infra/object_storage"
 
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel/propagation"

@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/infra/object_storage.storage@sha256:b3dd6a8e961eefa111329cf09ea6d1e1ca568c075b9d6e74afe6e6251641147b
+          image: docker.liukexin.com/artificial/infra/object_storage.storage@sha256:fa42daa13a0c8128c4187825f885a45d68464cf0f72780e40df3ec900245dc33
           ports:
             - containerPort: 8888
               name: grpc
@@ -109,7 +109,7 @@ spec:
     spec:
       containers:
         - name: storage
-          image: docker.liukexin.com/artificial/infra/object_storage.api@sha256:63380dcd11f544e0b1f7cb2adf045868b6bf00c272deb2a4d17756dbb3057b78
+          image: docker.liukexin.com/artificial/infra/object_storage.api@sha256:44253ab5551fe904d3cad5880834b950776aeed140b7db6faef55e4e66daeaf7
           ports:
             - containerPort: 443
               name: https
