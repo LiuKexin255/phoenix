@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"phoenix/project/infra/object_storage/storage/proto"
+	proto "phoenix/project/infra/object_storage"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

@@ -6,7 +6,7 @@ go_library(
     importpath = "phoenix/project/infra/object_storage/storage/client",
     visibility = ["//visibility:private"],
     deps = [
-        "//project/infra/object_storage/storage/proto:proto_go_proto",
+        "//project/infra/object_storage:object_storage_go_proto",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//credentials/insecure",
         "@org_golang_google_grpc//keepalive",
