@@ -1,14 +1,10 @@
 package main
 
 import (
-	"context"
-	"fmt"
-
 	"phoenix/common/go/otel"
 	proto "phoenix/project/infra/object_storage"
 
 	"go.opentelemetry.io/otel/metric"
-	"go.uber.org/zap"
 )
 
 func newServer() (*server, error) {
@@ -31,16 +27,16 @@ type server struct {
 	sayHelloCounter metric.Int64Counter
 }
 
-// SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloReply, error) {
-	ctx, span := otel.Tracer().Start(ctx, "SayHello")
-	defer span.End()
+// // SayHello implements helloworld.GreeterServer
+// func (s *server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloReply, error) {
+// 	ctx, span := otel.Tracer().Start(ctx, "SayHello")
+// 	defer span.End()
 
-	s.sayHelloCounter.Add(ctx, 1)
+// 	s.sayHelloCounter.Add(ctx, 1)
 
-	otel.Logger(ctx).Info(fmt.Sprintf("%s say hello", in.GetName()), zap.String("name", in.GetName()))
+// 	otel.Logger(ctx).Info(fmt.Sprintf("%s say hello", in.GetName()), zap.String("name", in.GetName()))
 
-	return &proto.HelloReply{
-		Message: "Hello " + in.GetName(),
-	}, nil
-}
+// 	return &proto.HelloReply{
+// 		Message: "Hello " + in.GetName(),
+// 	}, nil
+// }

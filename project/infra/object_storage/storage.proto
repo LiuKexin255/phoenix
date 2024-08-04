@@ -4,26 +4,59 @@ option go_package = "phoenix/project/infra/object_storage";
 
 package project.infra.object_storage;
 
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/empty.proto";
 import "common/proto/google/api/annotations.proto";
+import "project/infra/object_storage/file.proto";
 
 // The greeting service definition.
 service Storager {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {
+  // 获取文件
+  rpc GetFile(GetFileRequest) returns (File) {
     option (google.api.http) = {
-      post: "/v1/storage/say_hello"
-      body: "*"
+      get : "/api/v1/{path}"
+    };
+  }
+
+  // 创建文件
+  rpc CreateFile(CreateFileRequest) returns (File) {
+    option (google.api.http) = {
+      post : "/api/v1/{file.path}"
+      body : "file"
+    };
+  }
+
+  // 更新文件
+  rpc UpdateFile(UpdateFileRequest) returns (File) {
+    option (google.api.http) = {
+      patch : "/api/v1/{file.path}"
+      body : "file"
+    };
+  }
+
+  // 删除文件
+  rpc DeleteFile(DeleteFileRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/api/v1/{path}"
     };
   }
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message GetFileRequest { string path = 1; }
+
+message CreateFileRequest {
+  // 文件对象，必填 File.data
+  File file = 1;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message UpdateFileRequest {
+  // 更新文件对象，必填 File.data
+  File file = 1;
+
+  google.protobuf.FieldMask update_mask = 2;
 }
 
+message DeleteFileRequest {
+  // 要删除的文件路径
+  string path = 1;
+}

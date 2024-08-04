@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "phoenix/project/infra/object_storage";
+
+package project.infra.object_storage;
+
+enum FileType {
+  UNKNOWN = 0;
+  TEXT = 1;
+  BYTES = 2;
+  ZIP = 3;
+  GIF = 4;
+  PNG = 5;
+  JPEG = 6;
+  JPG = 7;
+}
+
+message File { 
+    // 文件路径
+    string path = 1;
+
+    // 文件内容，字节串
+    bytes data = 2; 
+
+    // 文件类型
+    FileType type = 3;
+
+    // 文件大小
+    int64 size = 4;
+}

@@ -4,24 +4,44 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
     name = "annotations_proto",
+    srcs = ["annotations.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":http_proto",
+        "@protobuf//:descriptor_proto",
+    ],
+)
+
+proto_library(
+    name = "http_proto",
     srcs = [
-        "annotations.proto",
         "http.proto",
     ],
     visibility = ["//visibility:public"],
-    deps = ["@protobuf//:descriptor_proto"],
 )
 
 go_proto_library(
     name = "annotations_go_proto",
     importpath = "google.golang.org/genproto/googleapis/api/annotations",
-    proto = ":annotations_proto",
+    protos = [
+        ":annotations_proto",
+        ":http_proto",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "http_go_proto",
+    importpath = "google.golang.org/genproto/googleapis/api/annotations",
+    proto = ":http_proto",
     visibility = ["//visibility:public"],
 )
 
 go_library(
     name = "annotations",
-    embed = [":annotations_go_proto"],
+    embed = [
+        ":annotations_go_proto",
+    ],
     importpath = "google.golang.org/genproto/googleapis/api/annotations",
     visibility = ["//visibility:public"],
 )
