@@ -32,7 +32,6 @@ go_proto_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        ":file_go_proto",
         "//common/proto/google/api:annotations",
     ],
 )
@@ -53,7 +52,6 @@ gateway_grpc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        ":file_go_proto",
         "//common/proto/google/api:annotations",
     ],
 )
