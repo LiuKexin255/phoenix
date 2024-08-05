@@ -3,6 +3,8 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
+# gazelle:resolve go phoenix/project/infra/object_storage //project/infra/object_storage:object_storage_go_proto
+
 go_library(
     name = "storage_lib",
     srcs = [
@@ -16,11 +18,9 @@ go_library(
         "//project/infra/object_storage:object_storage_go_proto",
         "@io_opentelemetry_go_contrib_instrumentation_google_golang_org_grpc_otelgrpc//:otelgrpc",
         "@io_opentelemetry_go_otel//propagation",
-        "@io_opentelemetry_go_otel_metric//:metric",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//encoding/gzip",
         "@org_golang_google_grpc//keepalive",
-        "@org_uber_go_zap//:zap",
     ],
 )
 

@@ -27,4 +27,7 @@ message File {
 
     // 文件大小
     int64 size = 4;
+
+    // md5 校验码
+    string md5 = 5;
 }

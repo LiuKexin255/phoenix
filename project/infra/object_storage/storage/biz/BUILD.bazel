@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "biz",
+    srcs = [
+        "context.go",
+        "error.go",
+        "file.go",
+        "service.go",
+    ],
+    importpath = "phoenix/project/infra/object_storage/storage/biz",
+    visibility = ["//visibility:public"],
+)
